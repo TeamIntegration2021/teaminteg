@@ -4,8 +4,9 @@
 #include <string>
 using namespace std;
 char board[9] =  {'1','2','3','4','5','6','7','8','9'};
-//Variable Declaration for the positions on the board
 int choice;
+//Variable Declaration for the positions on the board
+
 
 
 void showBoard() {
