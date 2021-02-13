@@ -2,10 +2,10 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+//Variable Declaration for the positions on the board
 using namespace std;
 char board[9] =  {'1','2','3','4','5','6','7','8','9'};
 int choice;
-//Variable Declaration for the positions on the board
 
 
 
