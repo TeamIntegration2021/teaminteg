@@ -67,42 +67,17 @@ char player::getPlay1Marker() const {
 char player::getPlay2Marker()const {
 	return marker2;
 }
+void player::setPlay1Marker(char mark) {
+	marker1 = mark;
+}
+void player::setPlay2Marker(char mark) {
+	marker2 = mark;
+}
 
 
-//create one member function to ask player 1, 'x' or 'o' and set both players markers
-void player::setPlay1and2Marker(char marker1, char marker2)  {
-	cout << playerName1 + " , would you like to be 'x' or 'o' ?" << endl;
-	//if statment that checks if player 1 entered a capital or lowercase x and if so, set marker 1 to x
-	if (marker1 = "x" || "X") {
 
-		marker1 == 'x';
-		//if marker equals capital or lowercase o then it sets marker 1 to o
-	}
-	else if (marker1 = "o" || "O") {
-
-		marker1 == 'o';
-
-	}
-	// else statment to ensure the user enters either an x or an o, and if not send an error message
-	else {
-
-		while (marker1 != 'x' && marker1 != 'X' && marker1 != 'o' && marker1 != 'O') {
-			cout << "Not a valid choice" << endl;
-			cout << "Enter 'x' or 'o' " << endl;
-			cin >> marker1;
-		}
-	}
-	
-	// seperate if statment that sets the opposite of whatever player 1 chose, as marker2
-		if (marker1 = "x" || "X") {
-		marker2 == 'o';
-
-		}
-		else if (marker1 = "o" || "O") {
-			marker2 == 'x';
-		}
 
 	
 #endif		
-};
+
 
