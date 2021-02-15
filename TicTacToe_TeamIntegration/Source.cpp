@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "playerClass.h"
+
 //Variable Declaration for the positions on the board
 using namespace std;
 char board[9] =  {'1','2','3','4','5','6','7','8','9'}; //Array to hold the marker spots on the board
