@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+
+// Definition and methods of playerclass
 #include "playerClass.h"
 
 //Variable Declaration for the positions on the board
