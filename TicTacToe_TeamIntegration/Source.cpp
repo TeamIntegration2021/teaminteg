@@ -109,6 +109,11 @@ void playerTurn()
             cout << player1.getplayer1Name()
                 << " it is your turn. Please enter a number corresponding to the spot on the board you would like to mark and press enter : ";
             cin >> choice; // User selects spot on the board they would like to mark
+            while (choice > 9)
+            {
+                cout << "Invalid placement! Please choose an open numbered spot on the board:" << endl;
+                cin >> choice;
+            }
             while (board[choice - 1] == 'X' || board[choice - 1] == 'O') // checks if the spot on the board is taken
             {
                 cout << "I am sorry that spot is already taken. Please choose an open spot on the board" << endl;
@@ -127,10 +132,16 @@ void playerTurn()
             cout << player2.getplayer2Name()
                 << " it is your turn. Please enter a number corresponding to the spot on the board you would like to mark and press enter : ";
             cin >> choice; // User selects spot on the board they would like to mark
+            while (choice > 9)
+            {
+                cout << "Invalid placement! Please choose an open numbered spot on the board:" << endl;
+                cin >> choice;
+            }
             while (board[choice - 1] == 'X' || board[choice - 1] == 'O')  // checks if the spot on the board is taken
             {
                 cout << "I am sorry that spot is already taken. Please choose an open spot on the board" << endl;
                 cin >> choice;
+               
             }
             board[choice - 1] = player2.getPlay2Marker(); //marks spot on board for the player
             turnCount++; //updates turn count
