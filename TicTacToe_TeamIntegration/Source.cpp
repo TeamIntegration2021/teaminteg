@@ -122,7 +122,7 @@ void playerTurn()
             cout << player1.getplayer1Name()
                 << " it is your turn. Please enter a number corresponding to the spot on the board you would like to mark and press enter : ";
             cin >> choice; // User selects spot on the board they would like to mark
-            while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9 || !isdigit(choice)) //input validation for user choice
+            while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9) //input validation for user choice
             {
                 cout << "Invalid placement! Please choose an open numbered spot on the board:" << endl;
                 cin >> choice;
@@ -145,7 +145,7 @@ void playerTurn()
             cout << player2.getplayer2Name()
                 << " it is your turn. Please enter a number corresponding to the spot on the board you would like to mark and press enter : ";
             cin >> choice; // User selects spot on the board they would like to mark
-            while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9 || !isdigit(choice)) //input validation for user choice
+            while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9) //input validation for user choice
             {
                 cout << "Invalid placement! Please choose an open numbered spot on the board:" << endl;
                 cin >> choice;
