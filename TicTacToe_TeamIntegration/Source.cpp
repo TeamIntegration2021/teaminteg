@@ -9,7 +9,7 @@
 
 //Variable Declaration for the positions on the board
 using namespace std;
-char board[9] =  {'1','2','3','4','5','6','7','8','9'}; //Array to hold the marker spots on the board
+char board[9] = { '1','2','3','4','5','6','7','8','9' }; //Array to hold the marker spots on the board
 int choice; // variable to hold player choice of board position
 string p1name;
 string p2name;
@@ -18,6 +18,9 @@ player player2;
 char markChoice; // variable to hold player 1's mark choice at beginning of game
 char turn; // variable to hold turn of current player
 int turnCount = 0; // variable to record the number of turns used
+char playAnother; //variable to hold choice for game restarting
+bool draw; //function to decide if the game ended in a draw
+void playAgain(); // function to restart
 
 
 
@@ -30,7 +33,7 @@ void showBoard() {
     cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << "  " << endl;
     cout << "_____|_____|_____" << endl;
     cout << "     |     |     " << endl;
-    cout <<"  " << board[3] << "  |  " << board[4] << "  |  " << board[5] << " " << endl;
+    cout << "  " << board[3] << "  |  " << board[4] << "  |  " << board[5] << " " << endl;
     cout << "_____|_____|_____" << endl;
     cout << "     |     |     " << endl;
     cout << "  " << board[6] << "  |  " << board[7] << "  |  " << board[8] << " " << endl;
@@ -42,54 +45,63 @@ bool gameIsOver()
     for (int i = 0; i < 9; i++)
     {
         //If statement to check for and vertical or horizontal wins
-        if (((i==0 || i==3 || i==6) && (board[i] == board[i + 1] && board[i] == board[i + 2])) || 
-            ((i == 1 || i == 4 || i == 7) && (board[i] == board[i + 1] && board[i] == board[i - 1])) ||
-            ((i == 2 || i == 5 || i == 8) && (board[i] == board[i - 1] && board[i] == board[i - 2])) ||
-            ((i == 0 || i == 1 || i == 2) && (board[i] == board[i + 3] && board[i] == board[i + 6])) ||
-            ((i == 3 || i == 4 || i == 5) && (board[i] == board[i - 3] && board[i] == board[i + 3])) ||
-            ((i == 6 || i == 7 || i == 8) && (board[i] == board[i - 3] && board[i] == board[i - 6])))
+        if ((board[0] == board[1] && board[0] == board[2]) ||
+            (board[3]==board[4] && board[3] == board[5]) ||
+            (board[6] == board[7] && board[6] == board[8]) ||
+            (board[0] == board[3] && board[0] == board[6]) ||
+            (board[1] == board[4] && board[1] == board[7]) ||
+            (board[2] == board[5] && board[2] == board[8]))
         {
-            if (board[i] == player1.getPlay1Marker()) //checks to see if player 1 won the game
+            if (turn != player1.getPlay1Marker()) //checks to see if player 1 won the game
             {
-                
+
                 cout << player1.getplayer1Name() << " you are the winner!!! Congratulations" << endl;
+                exit(0);
                 return true;
-               
+
             }
             else //Returns player 2 as winner if there are 3 in a row and player  did not win
             {
-                    cout << player2.getplayer2Name() << " you are the winner!!! Congratulations" << endl;
-                    return true;
-                    
+                cout << player2.getplayer2Name() << " you are the winner!!! Congratulations" << endl;
+                exit(0);
+                return true;
+
             }
             exit(0);
         }
         //else if to check for diagonal wins
-        else if (( board[0] == board[4] && board[0] == board[8]) || (board[2] == board[4] && board[2] == board[6]))
-        { 
+        else if ((board[0] == board[4] && board[0] == board[8]) || (board[2] == board[4] && board[2] == board[6]))
+        {
             if (board[4] == player1.getPlay1Marker()) //checks to see if player 1 won the game
             {
-                cout <<player1.getplayer1Name() << " you are the winner!!! Congratulations" << endl;
+                cout << player1.getplayer1Name() << " you are the winner!!! Congratulations" << endl;
+                exit(0);
                 return true;
-               
+
             }
             else //Returns player 2 as winner if there are 3 in a row and player  did not win
             {
-                
+
                 cout << player2.getplayer2Name() << " you are the winner!!! Congratulations" << endl;
+                exit(0);
                 return true;
-                
+
             }
             exit(0);
         }
-        //else if to check for draws
+        //else if to check for draws and reset game
         else if (turnCount == 9)
         {
-            
+
             cout << "Nobody wins!!! It is a draw" << endl;
-            return true;
-            exit(0);
+            draw = true;
+            playAgain();
+            return false;
+           
+
+           
             
+
         }
 
         //Else statement to verify game is over
@@ -97,19 +109,20 @@ bool gameIsOver()
         {
             return false;
         }
+        
 
     }
 }
-void playerTurn() 
+void playerTurn()
 {
-    while (gameIsOver() == false)
+    while (!gameIsOver())
     {
         if (turn == player1.getPlay1Marker()) //checks to see if it is player 1's turn and ask for a choice selection if true
         {
             cout << player1.getplayer1Name()
                 << " it is your turn. Please enter a number corresponding to the spot on the board you would like to mark and press enter : ";
             cin >> choice; // User selects spot on the board they would like to mark
-            while (choice > 9)
+            while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9 || !isdigit(choice)) //input validation for user choice
             {
                 cout << "Invalid placement! Please choose an open numbered spot on the board:" << endl;
                 cin >> choice;
@@ -123,7 +136,7 @@ void playerTurn()
             turnCount++; //updates turn count
             turn = player2.getPlay2Marker(); //switches turn to player 2 after player 1's selction
             showBoard(); // displays updated game board
-            playerTurn();
+            playerTurn(); //goes to next player turn
 
 
         }
@@ -132,7 +145,7 @@ void playerTurn()
             cout << player2.getplayer2Name()
                 << " it is your turn. Please enter a number corresponding to the spot on the board you would like to mark and press enter : ";
             cin >> choice; // User selects spot on the board they would like to mark
-            while (choice > 9)
+            while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7 && choice != 8 && choice != 9 || !isdigit(choice)) //input validation for user choice
             {
                 cout << "Invalid placement! Please choose an open numbered spot on the board:" << endl;
                 cin >> choice;
@@ -141,17 +154,52 @@ void playerTurn()
             {
                 cout << "I am sorry that spot is already taken. Please choose an open spot on the board" << endl;
                 cin >> choice;
-               
+
             }
             board[choice - 1] = player2.getPlay2Marker(); //marks spot on board for the player
             turnCount++; //updates turn count
             turn = player1.getPlay1Marker(); //switches turn to player 1 after player 2's selction
             showBoard(); // displays updated gameboard
-            playerTurn();
+            playerTurn(); //goes to next player turn
         }
     }
-   
 
+
+}
+void playAgain() //
+{   
+    
+    cout << "Would you like to play again? (Y/N)" << endl;
+    //Asks user if they would like to play again
+    cin >> playAnother;
+    while (playAnother != 'y' && playAnother != 'Y' && playAnother != 'N' && playAnother != 'n')
+    {
+        cout << "Invalid choice! Please try again. Would you like to play again ? (Y / N)" << endl;
+        cin >> playAnother;
+    }
+    if (playAnother == 'Y' || playAnother == 'y')
+    {
+        turnCount = 0;
+        turn = player1.getPlay1Marker(); //Sets initial turn to player 1
+        //Resets all board positions
+        board[0] = '1';
+        board[1] = '2';
+        board[2] = '3';
+        board[3] = '4';
+        board[4] = '5'; 
+        board[5] = '6'; 
+        board[6] = '7'; 
+        board[7] = '8'; 
+        board[8] = '9';
+        showBoard(); // Displays original gameboard
+        playerTurn(); //Starts the game
+
+    }
+    else//Else game exits
+    {
+        
+        exit(0);
+    }
 }
 
 int main()
@@ -164,7 +212,7 @@ int main()
     cin >> p2name; //Takes input for player 2's name
     cout << endl;
     player2.setplayer2Name(p2name); // Sets player 2's name
-  
+
     cout << player1.getplayer1Name() << " would you like to be the X marker? (Enter Y for X or N if you would like to be the O marker):";
     cin >> markChoice;
     while (markChoice != 'y' && markChoice != 'Y' && markChoice != 'N' && markChoice != 'n')
@@ -187,6 +235,7 @@ int main()
     turn = player1.getPlay1Marker(); //Sets initial turn to player 1
     showBoard(); // Displays original gameboard
     playerTurn(); //Starts the game
+
     return 0;
-  
+
 }
